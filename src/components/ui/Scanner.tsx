@@ -16,11 +16,12 @@ export default function Scanner() {
         decodedResult: string
       ) => {
         /* handle success */
+        console.log(`QR Code detected: ${decodedText}`);
       };
       const config = {
         fps: 10,
         qrbox: { width: 250, height: 250 },
-        aspectRatio: 1.777778,
+        aspectRatio: 1,
       };
 
       // If you want to prefer back camera
