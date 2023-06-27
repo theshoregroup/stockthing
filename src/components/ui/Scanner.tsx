@@ -17,6 +17,7 @@ export default function Scanner() {
       ) => {
         /* handle success */
         console.log(`QR Code detected: ${decodedText}`);
+        alert(`QR Code detected: ${decodedText}`);
       };
       const config = {
         fps: 10,
