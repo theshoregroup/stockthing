@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl         = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+}
+
+enum Areas {
+  AdhesiveSealants
+}
+
+model Product {
+  id        Int         @id @default(autoincrement())
+  name      String
+  barcode   String
+  supplier  String
+  storeCode String
+  area      Areas
+  Store     Store       @relation(fields: [storeId], references: [id])
+  storeId   Int
+  checklist Checklist[]
+}
+
+model Store {
+  id        Int         @id @default(autoincrement())
+  name      String
+  products  Product[]
+  checklist Checklist[]
+}
+
+model Checklist {
+  id        Int      @id @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  store     Store    @relation(fields: [storeId], references: [id])
+  storeId   Int
+  quantity  Int
+  uplift    Int
+  outOfDate Int
+  Date      DateTime
+}
