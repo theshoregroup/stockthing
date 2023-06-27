@@ -4,8 +4,11 @@ import { Html5Qrcode } from "html5-qrcode";
 
 export default function Scanner() {
   const cam = Html5Qrcode.getCameras().then((devices) => {
-    if (devices && devices.length) {
-      const cameraId = devices[0].id;
+    if (devices && devices.length > 0) {
+      const cameraId = devices[0]?.id;
+      if (!cameraId) {
+        return;
+      }
       const html5QrCode = new Html5Qrcode("reader");
       html5QrCode.start(
         cameraId,
