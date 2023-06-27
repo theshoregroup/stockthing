@@ -20,7 +20,7 @@ export default function Scanner() {
         alert(`QR Code detected: ${decodedText}`);
       };
       const config = {
-        fps: 10,
+        fps: 100,
         qrbox: { width: 250, height: 250 },
         aspectRatio: 1,
       };
