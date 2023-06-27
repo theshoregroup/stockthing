@@ -22,6 +22,10 @@ export default function Scanner() {
       const config = {
         fps: 100,
         qrbox: { width: 250, height: 250 },
+        focusMode: "continuous",
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true,
+        },
         aspectRatio: 1,
       };
 
