@@ -31,7 +31,7 @@ export default function Scanner() {
 
       // If you want to prefer back camera
       html5QrCode.start(
-        { facingMode: "environment" },
+        { facingMode: "angular" },
         config,
         qrCodeSuccessCallback
       );
