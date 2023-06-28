@@ -22,6 +22,7 @@ import Scanner from "./Scanner";
 import { Label } from "./label";
 import { Input } from "./input";
 import { Button } from "./button";
+import { StoreDispatchInADialog } from "../context/StoreContext";
 
 export default function AppNav() {
   const { user, isLoaded } = useUser();
@@ -64,6 +65,7 @@ export default function AppNav() {
           <Store className="h-7 w-7" />
           <span className="text-xs">Store</span>
         </DialogTrigger>
+        <StoreDispatchInADialog />
       </Dialog>
       {isLoaded && user?.publicMetadata?.isAdmin == true && (
         <Link
