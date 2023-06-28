@@ -1,7 +1,14 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Camera, ClipboardCheck, Cog, Home, Sliders } from "lucide-react";
+import {
+  Camera,
+  ClipboardCheck,
+  Cog,
+  Home,
+  Sliders,
+  Store,
+} from "lucide-react";
 import Link from "next/link";
 import {
   Dialog,
@@ -12,6 +19,9 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog";
 import Scanner from "./Scanner";
+import { Label } from "./label";
+import { Input } from "./input";
+import { Button } from "./button";
 
 export default function AppNav() {
   const { user, isLoaded } = useUser();
@@ -43,20 +53,29 @@ export default function AppNav() {
           <DialogHeader>
             <DialogTitle>Scan</DialogTitle>
             <DialogDescription>
-              Scan a barcode to add a product to your inventory.
+              Not working? Scroll to key in the code manually.
             </DialogDescription>
           </DialogHeader>
-
           <Scanner />
+          <div>
+            <Label>Not working?</Label>
+            <div className="flex w-full items-center gap-2">
+              <Input type="number" maxLength={15} inputMode="numeric" />
+              <Button>Go</Button>
+            </div>
+            <p className="mt-1 text-xs text-gray-500">
+              Input the EAN code on the reverse of the item to quickly locate
+              it.
+            </p>
+          </div>
         </DialogContent>
       </Dialog>
-      <Link
-        className="flex aspect-square h-14 w-14 flex-col items-center justify-center p-1"
-        href="/settings"
-      >
-        <Cog className="h-7 w-7" />
-        <span className="text-xs">Settings</span>
-      </Link>
+      <Dialog>
+        <DialogTrigger className="flex aspect-square h-14 w-14 flex-col items-center justify-center rounded p-1">
+          <Store className="h-7 w-7" />
+          <span className="text-xs">Store</span>
+        </DialogTrigger>
+      </Dialog>
       {isLoaded && user?.publicMetadata?.isAdmin == true && (
         <Link
           className="flex aspect-square h-14 w-14 flex-col items-center justify-center p-1"

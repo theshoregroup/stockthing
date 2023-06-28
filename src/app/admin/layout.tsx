@@ -52,7 +52,7 @@ export default async function AdminLayout({
           </div>
         </Link>
       </div>
-      {children}
+      <div className="p-5">{children}</div>
     </>
   );
 }

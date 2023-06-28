@@ -42,5 +42,5 @@ export default function Scanner() {
     };
   }, []);
 
-  return <div id={qrcodeId} className="w-full"></div>;
+  return <div id={qrcodeId} className="aspect-square w-full"></div>;
 }

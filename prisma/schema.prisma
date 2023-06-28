@@ -13,37 +13,36 @@ datasource db {
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
-enum Areas {
-  AdhesiveSealants
-}
-
 model Product {
-  id        Int         @id @default(autoincrement())
-  name      String
-  barcode   String
-  supplier  String
-  storeCode String
-  area      Areas
-  Store     Store       @relation(fields: [storeId], references: [id])
-  storeId   Int
-  checklist Checklist[]
+  name                String
+  barcode             String                @id
+  supplier            String
+  storeCode           String
+  area                String
+  ProductsInChecklist ProductsInChecklist[]
 }
 
 model Store {
   id        Int         @id @default(autoincrement())
   name      String
-  products  Product[]
   checklist Checklist[]
 }
 
+model ProductsInChecklist {
+  product     Product   @relation(fields: [productId], references: [barcode])
+  productId   String
+  checklist   Checklist @relation(fields: [checklistId], references: [id])
+  checklistId Int
+  uplift      Int
+  outOfDate   Int
+
+  @@id([productId, checklistId])
+}
+
 model Checklist {
-  id        Int      @id @default(autoincrement())
-  product   Product  @relation(fields: [productId], references: [id])
-  productId Int
-  store     Store    @relation(fields: [storeId], references: [id])
-  storeId   Int
-  quantity  Int
-  uplift    Int
-  outOfDate Int
-  Date      DateTime
+  id                  Int                   @id @default(autoincrement())
+  store               Store                 @relation(fields: [storeId], references: [id])
+  storeId             Int
+  Date                DateTime
+  ProductsInChecklist ProductsInChecklist[]
 }
