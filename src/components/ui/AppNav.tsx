@@ -38,13 +38,6 @@ export default function AppNav() {
         <Home className="h-7 w-7" />
         <span className="text-xs">Home</span>
       </Link>
-      <Link
-        className="flex aspect-square h-14 w-14 flex-col items-center justify-center p-1"
-        href="/lists"
-      >
-        <ClipboardCheck className="h-7 w-7" />
-        <span className="text-xs">Checklist</span>
-      </Link>
       <Dialog>
         <DialogTrigger className="flex aspect-square h-14 w-14 flex-col items-center justify-center rounded bg-green-100 p-1 text-green-700">
           <Camera className="h-7 w-7" />
