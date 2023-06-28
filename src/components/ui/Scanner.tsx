@@ -63,6 +63,7 @@ export default function Scanner() {
         <div className="flex w-full items-center gap-2">
           <Input
             type="number"
+            autoFocus={false}
             value={currentTextInput}
             onChange={(e) => setTextInput(e.target.value)}
             maxLength={15}
