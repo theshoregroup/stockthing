@@ -57,17 +57,6 @@ export default function AppNav() {
             </DialogDescription>
           </DialogHeader>
           <Scanner />
-          <div>
-            <Label>Not working?</Label>
-            <div className="flex w-full items-center gap-2">
-              <Input type="number" maxLength={15} inputMode="numeric" />
-              <Button>Go</Button>
-            </div>
-            <p className="mt-1 text-xs text-gray-500">
-              Input the EAN code on the reverse of the item to quickly locate
-              it.
-            </p>
-          </div>
         </DialogContent>
       </Dialog>
       <Dialog>
