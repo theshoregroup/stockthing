@@ -1,5 +1,5 @@
 "use client";
-import { Medal, Move, Store } from "lucide-react";
+import { ClipboardCheck, Medal, Move, Store } from "lucide-react";
 import {
   useStore,
   StoreDispatchInADialog,
@@ -49,6 +49,14 @@ export default function Home() {
             </DialogTrigger>
             <StoreDispatchInADialog />
           </Dialog>
+        </div>
+
+        <div className="rounded-xl bg-gradient-to-tr from-indigo-500 via-violet-400  to-indigo-400 p-5 text-white">
+          <ClipboardCheck className="h-10 w-10" />
+          <h4>Reports</h4>
+          <p className="text-sm text-gray-100">
+            View and export reports per store.
+          </p>
         </div>
 
         <div className="text-center">

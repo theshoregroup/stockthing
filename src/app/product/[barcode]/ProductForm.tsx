@@ -20,15 +20,56 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { ProductsInStores } from "@prisma/client";
+import { useSignIn, useUser } from "@clerk/nextjs";
+import { useTransition } from "react";
+import { handleSaveProductsInStores } from "~/server/actions/products";
 
-export default function ProductForm({ product }: { product: Product }) {
-  const checklistItem = useForm();
+interface ProductWithStock extends Product {
+  stock: ProductsInStores[];
+}
+
+export default function ProductForm({
+  product,
+}: {
+  product: ProductWithStock;
+}) {
   const currentStore = useStore();
+  const { user, isLoaded } = useUser();
+  const [isSaving, startSaving] = useTransition();
+
+  const currentValuesIfAvailable = product.stock.find((obj) => {
+    return obj.storeId == currentStore?.store?.id;
+  });
+
+  const checklistItem = useForm<ProductsInStores>({
+    defaultValues: {
+      productId: product.barcode,
+      storeId: currentStore?.store?.id,
+      byUser: user?.id,
+      uplift: currentValuesIfAvailable?.uplift,
+      outOfDate: currentValuesIfAvailable?.outOfDate,
+    },
+  });
+
+  if (!user && isLoaded) {
+    useSignIn();
+  }
+
+  function handleSubmit(data: ProductsInStores) {
+    startSaving(async () => {
+      // Need to force the types here because the form is returning strings
+      data.uplift = parseInt(data.uplift.toString());
+      data.outOfDate = parseInt(data.outOfDate.toString());
+      data.byUser = user!.id;
+      const updated = await handleSaveProductsInStores(data);
+    });
+  }
 
   return (
     <>
       <Form {...checklistItem}>
-        <form>
+        <form onSubmit={checklistItem.handleSubmit(handleSubmit)}>
           {/* Barcode Viewer */}
           <div>
             <Label>Product Barcode</Label>
@@ -43,7 +84,12 @@ export default function ProductForm({ product }: { product: Product }) {
                 <FormItem>
                   <FormLabel>Stock to Uplift</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input
+                      type="number"
+                      inputMode="decimal"
+                      placeholder="Input #"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>
                     #of stock to uplift from the warehouse
@@ -60,7 +106,12 @@ export default function ProductForm({ product }: { product: Product }) {
                 <FormItem>
                   <FormLabel>Out of date Stock</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input
+                      type="number"
+                      inputMode="decimal"
+                      placeholder="Input #"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>
                     # of out-of-date stock to remove
@@ -70,11 +121,25 @@ export default function ProductForm({ product }: { product: Product }) {
               )}
             />
           </div>
-          <div className="mt-2">
+          <div className="mt-2 flex gap-2">
             <Button>
               <CheckCheck className="mr-1 h-5 w-5" />
               Save
             </Button>
+            {currentValuesIfAvailable ? (
+              <div className="text-xs text-gray-500">
+                <span className="block">
+                  Last saved:{" "}
+                  {new Date(
+                    currentValuesIfAvailable.updatedAt
+                  ).toLocaleDateString()}{" "}
+                  at{" "}
+                  {new Date(
+                    currentValuesIfAvailable.updatedAt
+                  ).toLocaleTimeString()}
+                </span>
+              </div>
+            ) : null}
           </div>
           <div className="my-2 rounded-xl bg-gradient-to-tr from-blue-500 via-sky-400  to-cyan-400 p-5 text-white">
             <div>

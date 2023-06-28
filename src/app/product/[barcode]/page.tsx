@@ -1,5 +1,5 @@
 import { prisma } from "~/server/db";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { UserButton, currentUser } from "@clerk/nextjs";
 import ProductForm from "./ProductForm";
 import { Button } from "~/components/ui/button";
@@ -15,9 +15,12 @@ export default async function ProductPage({
     where: {
       barcode: params.barcode,
     },
+    include: {
+      stock: true,
+    },
   });
 
-  if (!product) return notFound();
+  if (!product) redirect("/product/create?barcode=" + params.barcode);
 
   return (
     <>

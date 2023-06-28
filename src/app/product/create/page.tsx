@@ -18,11 +18,18 @@ import { Loader2, PackagePlus } from "lucide-react";
 import { Transition } from "@headlessui/react";
 import { useTransition } from "react";
 import { handleNewProduct } from "~/server/actions/products";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 export default function CreateProduct() {
-  const newProduct = useForm<Product>();
   const [saving, startSaving] = useTransition();
+  const searchParams = useSearchParams();
+  const barcode = searchParams.get("barcode");
+
+  const newProduct = useForm<Product>({
+    defaultValues: {
+      barcode: barcode ? barcode : undefined,
+    },
+  });
 
   function handleSubmit(data: Product) {
     startSaving(async () => {

@@ -14,35 +14,30 @@ datasource db {
 }
 
 model Product {
-  name                String
-  barcode             String                @id
-  supplier            String
-  storeCode           String
-  area                String
-  ProductsInChecklist ProductsInChecklist[]
+  name      String
+  barcode   String             @id
+  supplier  String
+  storeCode String
+  area      String
+  stock     ProductsInStores[]
 }
 
 model Store {
-  id        Int         @id @default(autoincrement())
-  name      String
-  checklist Checklist[]
+  id    Int                @id @default(autoincrement())
+  name  String
+  stock ProductsInStores[]
 }
 
-model ProductsInChecklist {
-  product     Product   @relation(fields: [productId], references: [barcode])
-  productId   String
-  checklist   Checklist @relation(fields: [checklistId], references: [id])
-  checklistId Int
-  uplift      Int
-  outOfDate   Int
+model ProductsInStores {
+  store     Store    @relation(fields: [storeId], references: [id])
+  storeId   Int
+  product   Product  @relation(fields: [productId], references: [barcode])
+  productId String
+  uplift    Int
+  outOfDate Int
+  byUser    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@id([productId, checklistId])
-}
-
-model Checklist {
-  id                  Int                   @id @default(autoincrement())
-  store               Store                 @relation(fields: [storeId], references: [id])
-  storeId             Int
-  Date                DateTime
-  ProductsInChecklist ProductsInChecklist[]
+  @@id([storeId, productId])
 }
