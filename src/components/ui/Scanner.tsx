@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Label } from "./label";
 import { Input } from "./input";
 import { Button } from "./button";
+import { redirect } from "next/navigation";
 
 export default function Scanner() {
   const [activeCamera, setActiveCamera] = useState<string>("");
@@ -12,7 +13,9 @@ export default function Scanner() {
   let html5QrCode: any;
   let qrcodeId = "qr-code-scanner";
 
-  function handleCodeInput(code: string) {}
+  function handleCodeInput(code: string) {
+    redirect(`/product/${code}`);
+  }
 
   useEffect(() => {
     // Anything in here is fired on component mount.
