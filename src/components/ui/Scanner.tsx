@@ -5,16 +5,19 @@ import { useEffect, useState } from "react";
 import { Label } from "./label";
 import { Input } from "./input";
 import { Button } from "./button";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export default function Scanner() {
   const [activeCamera, setActiveCamera] = useState<string>("");
   const [currentTextInput, setTextInput] = useState<string>("");
+  const router = useRouter();
   let html5QrCode: any;
   let qrcodeId = "qr-code-scanner";
 
   function handleCodeInput(code: string) {
-    redirect(`/product/${code}`);
+    console.log(code);
+    router.push(`/product/${code}`);
   }
 
   useEffect(() => {
@@ -65,7 +68,11 @@ export default function Scanner() {
             maxLength={15}
             inputMode="numeric"
           />
-          <Button onClick={() => handleCodeInput(currentTextInput)}>Go</Button>
+          <DialogClose>
+            <Button onClick={() => handleCodeInput(currentTextInput)}>
+              Go
+            </Button>
+          </DialogClose>
         </div>
         <p className="mt-1 text-xs text-gray-500">
           Input the EAN code on the reverse of the item to quickly locate it.
