@@ -103,6 +103,9 @@ export function StoreDispatchInADialog() {
           ))}
         </SelectContent>
       </Select>
+      <p className="text-sm text-gray-500">
+        Store not listed? Please get in touch with the office.
+      </p>
       <DialogFooter>
         <DialogClose asChild>
           <Button variant="secondary">Close</Button>

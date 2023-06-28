@@ -42,6 +42,7 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -93,41 +94,12 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <PlusCircle className="mr-1 h-5 w-5" />
-              Add New
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add a new product</DialogTitle>
-            </DialogHeader>
-
-            {/* Form */}
-            <Form {...newProductForm}>
-              <form onSubmit={newProductForm.handleSubmit(handleFormSubmit)}>
-                <FormField
-                  control={newProductForm.control}
-                  name="barcode"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Barcode</FormLabel>
-                      <FormControl>
-                        <Input required placeholder="5965931..." {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        This is the EAN or UPC code on the reverse of the item.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-          </DialogContent>
-        </Dialog>
+        <Link href="/product/create">
+          <Button>
+            <PlusCircle className="mr-1 h-5 w-5" />
+            Add New
+          </Button>
+        </Link>
       </div>
       <div className="rounded-md border">
         <Table>

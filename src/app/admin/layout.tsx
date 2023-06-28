@@ -1,5 +1,11 @@
 import { currentUser } from "@clerk/nextjs";
-import { PackageSearch, Sliders, Store, Users } from "lucide-react";
+import {
+  ClipboardCheck,
+  PackageSearch,
+  Sliders,
+  Store,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import Header from "~/components/ui/Header";
 
@@ -38,8 +44,8 @@ export default async function AdminLayout({
         <Link className="group" href="/admin/stores">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-tr from-indigo-700 via-purple-500 to-indigo-400 p-2 text-yellow-50  shadow-lg transition-all ease-in-out hover:shadow-xl md:p-5">
             <span className="text-2xl md:text-3xl">
-              Stores
-              <Store className="absolute -bottom-6 -right-6 h-32 w-32 opacity-50 transition-all ease-in-out group-hover:bottom-1 group-hover:right-1" />
+              Reports
+              <ClipboardCheck className="absolute -bottom-6 -right-6 h-32 w-32 opacity-50 transition-all ease-in-out group-hover:bottom-1 group-hover:right-1" />
             </span>
           </div>
         </Link>
