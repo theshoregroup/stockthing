@@ -26,22 +26,27 @@ export default async function AdminPage() {
           level information.
         </p>
         <div className="py-2">
-          <DataTable columns={columns} data={stores} />
+          <DataTable
+            columns={columns}
+            data={stores}
+            optionalButton={
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button>
+                    <Plus className="mr-1 h-5 w-5" />
+                    Add Store
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Add a new store</DialogTitle>
+                  </DialogHeader>
+                  <NewStoreForm />
+                </DialogContent>
+              </Dialog>
+            }
+          />
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-1 h-5 w-5" />
-              Add Store
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add a new store</DialogTitle>
-            </DialogHeader>
-            <NewStoreForm />
-          </DialogContent>
-        </Dialog>
       </div>
     </>
   );

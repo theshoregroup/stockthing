@@ -31,7 +31,27 @@ export default function NewStoreForm() {
 
   return (
     <Form {...newStore}>
-      <form onSubmit={newStore.handleSubmit(handleSubmit)}>
+      <form
+        className="space-y-2"
+        onSubmit={newStore.handleSubmit(handleSubmit)}
+      >
+        <FormField
+          control={newStore.control}
+          name="id"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Store Code</FormLabel>
+              <FormControl>
+                <Input placeholder="S3" {...field} />
+              </FormControl>
+              <FormDescription>
+                The id of the store you want to add
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={newStore.control}
           name="name"

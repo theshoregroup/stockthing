@@ -26,8 +26,8 @@ export default async function AdminLayout({
       <div className="grid grid-cols-2 gap-5 px-5 md:grid-cols-3">
         <Link className="group" href="/admin">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-tr from-blue-700 via-cyan-500 to-blue-400 p-2 text-blue-50 shadow-lg transition-all ease-in-out hover:shadow-xl md:p-5">
-            <span className="text-2xl md:text-3xl">General</span>
-            <Sliders className="absolute -bottom-6 -right-6 h-32 w-32 opacity-50 transition-all ease-in-out group-hover:bottom-1 group-hover:right-1" />
+            <span className="text-2xl md:text-3xl">Stores</span>
+            <Store className="absolute -bottom-6 -right-6 h-32 w-32 opacity-50 transition-all ease-in-out group-hover:bottom-1 group-hover:right-1" />
           </div>
         </Link>
         <Link
@@ -41,7 +41,7 @@ export default async function AdminLayout({
             </span>
           </div>
         </Link>
-        <Link className="group" href="/admin/stores">
+        <Link className="group" href="/admin/reports">
           <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-tr from-indigo-700 via-purple-500 to-indigo-400 p-2 text-yellow-50  shadow-lg transition-all ease-in-out hover:shadow-xl md:p-5">
             <span className="text-2xl md:text-3xl">
               Reports
