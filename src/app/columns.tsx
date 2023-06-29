@@ -35,7 +35,12 @@ export const columns: ColumnDef<Store>[] = [
 
           const link = document.createElement("a");
           link.href = url;
-          link.setAttribute("download", `${row.original.name}.csv`);
+          link.setAttribute(
+            "download",
+            `StockThingReport-${
+              row.original.name
+            }_${new Date().toLocaleDateString()}.csv`
+          );
 
           // Append to html link element page
           document.body.appendChild(link);
