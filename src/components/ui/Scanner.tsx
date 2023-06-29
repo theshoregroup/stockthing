@@ -8,7 +8,7 @@ import { Button } from "./button";
 import { useRouter } from "next/navigation";
 import { DialogClose } from "@radix-ui/react-dialog";
 
-export default function Scanner({ closeFn }: { closeFn: Function }) {
+export default function Scanner() {
   const [activeCamera, setActiveCamera] = useState<string>("");
   const [currentTextInput, setTextInput] = useState<string>("");
   const router = useRouter();
@@ -18,7 +18,6 @@ export default function Scanner({ closeFn }: { closeFn: Function }) {
   function handleCodeInput(code: string) {
     console.log(code);
     router.push(`/product/${code}`);
-    closeFn();
   }
 
   useEffect(() => {
