@@ -15,6 +15,5 @@ export async function GET(
 
   const asCSV = convertArrayToCSV(reportDetails);
 
-  var file = new File([asCSV], "foo.csv", { type: "text/csv" });
-  return new Response(file);
+  return asCSV;
 }

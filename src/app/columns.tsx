@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { generateReport } from "~/server/actions/reports";
 
 export const columns: ColumnDef<Store>[] = [
   {
@@ -22,28 +23,36 @@ export const columns: ColumnDef<Store>[] = [
     id: "actions",
     header: "Download Report",
     cell: ({ row }) => {
-      // const [isGetting, startGetting] = useTransition();
+      const [isGetting, startGetting] = useTransition();
 
-      // function get() {
-      //   startGetting(() => {
-      //     fetch(`/reports/${row.original.id}`, {
-      //       method: "GET",
-      //     });
-      //   });
-      // }
+      function get() {
+        startGetting(async () => {
+          const asString = await generateReport(row.original.id);
+
+          const url = window.URL.createObjectURL(
+            new Blob([asString], { type: "text/csv" })
+          );
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", `${row.original.name}.csv`);
+
+          // Append to html link element page
+          document.body.appendChild(link);
+
+          // Start download
+          link.click();
+
+          // Clean up and remove the link
+        });
+      }
 
       return (
         <>
-          <Link
-            prefetch={false}
-            target="_blank"
-            href={`/reports/${row.original.id}`}
-          >
-            <Button>
-              <DownloadCloud className="mr-2 h-5 w-5" />
-              Download
-            </Button>
-          </Link>
+          <Button onClick={() => get()}>
+            <DownloadCloud className="mr-2 h-5 w-5" />
+            Download
+          </Button>
         </>
       );
     },
