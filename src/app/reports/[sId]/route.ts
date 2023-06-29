@@ -1,6 +1,8 @@
 import { convertArrayToCSV } from "convert-array-to-csv";
 import { prisma } from "~/server/db";
 
+export const runtime = "nodejs";
+
 export async function GET(
   request: Request,
   { params }: { params: { sId: string } }
