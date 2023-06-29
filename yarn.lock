@@ -652,6 +652,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/convert-array-to-csv@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/convert-array-to-csv/-/convert-array-to-csv-2.0.0.tgz#9d188aab91942c38f41d27b2bcb00b95bba78d24"
+  integrity sha512-dUcWXkJK2GwE2bwLnsjL0hN9QZNk/mcP1iH9Gc7PECOiAyjJMiLRH3+W4FI9nItBGnWZnk2ZaQojc61O1NZNzg==
+
 "@types/cookies@0.7.7":
   version "0.7.7"
   resolved "https://registry.yarnpkg.com/@types/cookies/-/cookies-0.7.7.tgz#7a92453d1d16389c05a5301eef566f34946cfd81"
@@ -959,6 +964,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+convert-array-to-csv@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/convert-array-to-csv/-/convert-array-to-csv-2.0.0.tgz#3a7f4548a169a3efc5857d0da28c5cfb57a93173"
+  integrity sha512-dxUINCt28k6WbXGMoB+AaKjGY0Y6GkKwZmT+kvD4nJgVCOKsnIQ3G6n0v2II1lG4NwXQk6EWZ+pPDub9wcqqMg==
+
 cookie@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
@@ -978,6 +988,11 @@ csstype@^3.0.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.2.tgz#1d4bf9d572f11c14031f0436e1c10bc1f571f50b"
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
+
+csv-generate@^4.2.6:
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/csv-generate/-/csv-generate-4.2.6.tgz#7146b41313d7c91d19d99891ef400d7f0931e908"
+  integrity sha512-VtnYqhWLcsUocA346ewFOk+rrqcoT663j11vXzD2uelXq9WguQ3QzDeVD8ISso7hhVtkDSHcWl9psdemeiEHDA==
 
 deepmerge@4.2.2:
   version "4.2.2"

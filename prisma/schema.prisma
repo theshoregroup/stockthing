@@ -23,14 +23,14 @@ model Product {
 }
 
 model Store {
-  id    Int                @id @default(autoincrement())
+  id    String             @id
   name  String
   stock ProductsInStores[]
 }
 
 model ProductsInStores {
   store     Store    @relation(fields: [storeId], references: [id])
-  storeId   Int
+  storeId   String
   product   Product  @relation(fields: [productId], references: [barcode])
   productId String
   uplift    Int

@@ -34,7 +34,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <StoreProvider storeInput={stores[0]!}>
         <html lang="en">
-          <body className={cn(spacegrotesk.className, "mb-10")}>
+          <body className={cn(spacegrotesk.className, "mb-20")}>
             {children}
             <AppNav />
           </body>

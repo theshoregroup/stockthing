@@ -1,16 +1,14 @@
-"use client";
 import { ClipboardCheck, Medal, Move, Store } from "lucide-react";
-import {
-  useStore,
-  StoreDispatchInADialog,
-} from "~/components/context/StoreContext";
+import { DivToChangeStore } from "~/components/context/StoreContext";
+import { DataTable } from "./ReportsTable";
 import Header from "~/components/ui/Header";
 import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Dialog, DialogTrigger } from "~/components/ui/dialog";
+import { prisma } from "~/server/db";
+import { columns } from "./columns";
 
-export default function Home() {
-  const currentStore = useStore();
+export default async function Home() {
+  const stores = await prisma.store.findMany();
+
   return (
     <>
       <Header title="StockThing" />
@@ -26,37 +24,15 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="my-2 rounded-xl bg-gradient-to-tr from-blue-500 via-sky-400  to-cyan-400 p-5 text-white">
-          <div>
-            <Store className="h-7 w-7" />
-            <h4>
-              {currentStore.store
-                ? `Your active store is currently ${currentStore.store.name}`
-                : `Please select a store to get started`}
-            </h4>
-          </div>
-          <p className="mb-2 text-sm text-gray-100">
-            You can change your active store at any time from the navigation
-            menu.
-          </p>
+        <DivToChangeStore />
 
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant={"secondary"}>
-                <Move className="mr-1 h-5 w-5" />
-                Change Store
-              </Button>
-            </DialogTrigger>
-            <StoreDispatchInADialog />
-          </Dialog>
-        </div>
-
-        <div className="rounded-xl bg-gradient-to-tr from-indigo-500 via-violet-400  to-indigo-400 p-5 text-white">
-          <ClipboardCheck className="h-10 w-10" />
-          <h4>Reports</h4>
+        <div className="rounded-xl bg-gradient-to-tr from-indigo-500 via-violet-400  to-indigo-400 p-5">
+          <ClipboardCheck className="h-10 w-10 text-white" />
+          <h4 className="text-white">Reports</h4>
           <p className="text-sm text-gray-100">
             View and export reports per store.
           </p>
+          <DataTable columns={columns} data={stores} />
         </div>
 
         <div className="text-center">

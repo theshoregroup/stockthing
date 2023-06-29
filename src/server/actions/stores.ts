@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export async function handleGetStores() {
   const stores = await prisma.store.findMany({
-    take: 20,
+    orderBy: { name: "asc" },
   });
   return stores;
 }
@@ -17,7 +17,7 @@ export async function handleAddStore(input: Store) {
   return store;
 }
 
-export async function handleDeleteStore(storeId: number) {
+export async function handleDeleteStore(storeId: string) {
   const store = await prisma.store.delete({
     where: { id: storeId },
   });

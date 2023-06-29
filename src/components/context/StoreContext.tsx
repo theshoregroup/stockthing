@@ -25,7 +25,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
-import { DialogClose } from "@radix-ui/react-dialog";
+import { Dialog, DialogClose, DialogTrigger } from "@radix-ui/react-dialog";
+import { Move, StoreIcon } from "lucide-react";
 
 const StoreContext = createContext<{
   store: Store | null;
@@ -112,6 +113,36 @@ export function StoreDispatchInADialog() {
         </DialogClose>
       </DialogFooter>
     </DialogContent>
+  );
+}
+
+export function DivToChangeStore() {
+  const currentStore = useStore();
+
+  return (
+    <div className="my-2 rounded-xl bg-gradient-to-tr from-blue-500 via-sky-400  to-cyan-400 p-5 text-white">
+      <div>
+        <StoreIcon className="h-7 w-7" />
+        <h4>
+          {currentStore.store
+            ? `Your active store is currently ${currentStore.store.name}`
+            : `Please select a store to get started`}
+        </h4>
+      </div>
+      <p className="mb-2 text-sm text-gray-100">
+        You can change your active store at any time from the navigation menu.
+      </p>
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant={"secondary"}>
+            <Move className="mr-1 h-5 w-5" />
+            Change Store
+          </Button>
+        </DialogTrigger>
+        <StoreDispatchInADialog />
+      </Dialog>
+    </div>
   );
 }
 
