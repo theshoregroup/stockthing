@@ -3,13 +3,14 @@
 import { Store } from "@prisma/client";
 import { prisma } from "../db";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
-export async function handleGetStores() {
+export const handleGetStores = cache(async () => {
   const stores = await prisma.store.findMany({
     orderBy: { name: "asc" },
   });
   return stores;
-}
+});
 
 export async function handleAddStore(input: Store) {
   const store = await prisma.store.create({ data: input });
