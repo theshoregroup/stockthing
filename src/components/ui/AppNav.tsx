@@ -23,9 +23,11 @@ import { Label } from "./label";
 import { Input } from "./input";
 import { Button } from "./button";
 import { StoreDispatchInADialog } from "../context/StoreContext";
+import { useState } from "react";
 
 export default function AppNav() {
   const { user, isLoaded } = useUser();
+  const [isOpen, setOpen] = useState(false);
 
   user?.publicMetadata;
 
@@ -38,8 +40,11 @@ export default function AppNav() {
         <Home className="h-7 w-7" />
         <span className="text-xs">Home</span>
       </Link>
-      <Dialog>
-        <DialogTrigger className="flex aspect-square h-14 w-14 flex-col items-center justify-center rounded bg-green-100 p-1 text-green-700">
+      <Dialog open={isOpen}>
+        <DialogTrigger
+          onClick={() => setOpen(true)}
+          className="flex aspect-square h-14 w-14 flex-col items-center justify-center rounded bg-green-100 p-1 text-green-700"
+        >
           <Camera className="h-7 w-7" />
           <span className="text-xs">Scan</span>
         </DialogTrigger>
@@ -50,7 +55,7 @@ export default function AppNav() {
               Not working? Scroll to key in the code manually.
             </DialogDescription>
           </DialogHeader>
-          <Scanner />
+          <Scanner closeFn={() => setOpen(false)} />
         </DialogContent>
       </Dialog>
       <Dialog>
