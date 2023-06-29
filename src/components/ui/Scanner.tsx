@@ -1,6 +1,6 @@
 "use client";
 
-import { Html5Qrcode } from "html5-qrcode";
+import { Html5Qrcode, Html5QrcodeScanner } from "html5-qrcode";
 import { useEffect, useState } from "react";
 import { Label } from "./label";
 import { Input } from "./input";
@@ -21,34 +21,41 @@ export default function Scanner() {
   }
 
   useEffect(() => {
-    // Anything in here is fired on component mount.
-    if (!html5QrCode?.getState()) {
-      html5QrCode = new Html5Qrcode(qrcodeId);
-      const qrCodeSuccessCallback = (
-        decodedText: string,
-        decodedResult: string
-      ) => {
-        /* handle success */
-        console.log(`QR Code detected: ${decodedText}`);
-        handleCodeInput(decodedText);
-      };
-      const config = {
-        fps: 100,
-        qrbox: { width: 250, height: 250 },
-        focusMode: "continuous",
-        experimentalFeatures: {
-          useBarCodeDetectorIfSupported: true,
-        },
-        aspectRatio: 1,
-      };
+    // // Anything in here is fired on component mount.
+    // if (!html5QrCode?.getState()) {
+    //   html5QrCode = new Html5Qrcode(qrcodeId);
+    //   const qrCodeSuccessCallback = (
+    //     decodedText: string,
+    //     decodedResult: string
+    //   ) => {
+    //     /* handle success */
+    //     console.log(`QR Code detected: ${decodedText}`);
+    //     handleCodeInput(decodedText);
+    //   };
+    //   const config = {
+    //     fps: 100,
+    //     qrbox: { width: 250, height: 250 },
+    //     focusMode: "continuous",
+    //     experimentalFeatures: {
+    //       useBarCodeDetectorIfSupported: true,
+    //     },
+    //     aspectRatio: 1,
+    //   };
 
-      // If you want to prefer back camera
-      html5QrCode.start(
-        { facingMode: "environment" },
-        config,
-        qrCodeSuccessCallback
-      );
-    }
+    //   // If you want to prefer back camera
+    //   html5QrCode.start(
+    //     { facingMode: "environment" },
+    //     config,
+    //     qrCodeSuccessCallback
+    //   );
+    // }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+      qrcodeId,
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      /* verbose= */ false
+    );
+    html5QrcodeScanner.render(handleCodeInput, () => console.log("fail"));
 
     return () => {
       // Anything in here is fired on component unmount.
