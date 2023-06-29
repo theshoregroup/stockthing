@@ -6,16 +6,20 @@ import { Label } from "./label";
 import { Input } from "./input";
 import { Button } from "./button";
 import { useRouter } from "next/navigation";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { CameraIcon, Search } from "lucide-react";
+import { cn } from "~/lib/utils";
+import { Transition } from "@headlessui/react";
 
 export default function Scanner() {
-  const [activeCamera, setActiveCamera] = useState<string>("");
   const [currentTextInput, setTextInput] = useState<string>("");
+  const [foundValue, setFoundValue] = useState<string | null>(null);
   const router = useRouter();
   let html5QrCode: any;
   let qrcodeId = "qr-code-scanner";
 
-  function handleCodeInput(code: string) {
+  async function handleCodeInput(code: string) {
     console.log(code);
     router.push(`/product/${code}`);
   }
@@ -30,10 +34,10 @@ export default function Scanner() {
       ) => {
         /* handle success */
         console.log(`QR Code detected: ${decodedText}`);
-        handleCodeInput(decodedText);
+        setFoundValue(decodedText);
       };
       const config = {
-        fps: 100,
+        fps: 10,
         qrbox: { width: 250, height: 250 },
         focusMode: "continuous",
         experimentalFeatures: {
@@ -53,11 +57,39 @@ export default function Scanner() {
     return () => {
       // Anything in here is fired on component unmount.
     };
-  }, [handleCodeInput]);
+  }, [handleCodeInput, foundValue]);
 
   return (
     <>
-      <div id={qrcodeId} className="aspect-square w-full" />
+      <div id={qrcodeId} className="h-96 overflow-hidden">
+        <CameraIcon className="h-10 w-10 animate-pulse" />
+      </div>
+      <div className="-mt-4 flex items-center justify-between rounded-b-xl bg-gradient-to-tr from-slate-500 via-gray-500 to-slate-500 p-3 text-white">
+        <div className="flex gap-2">
+          <div className="relative">
+            <Search className="absolute h-6 w-6 animate-ping" />
+            <Search className="h-6 w-6" />
+          </div>
+          <h4
+            className={cn(
+              foundValue ? null : "animate-pulse",
+              "truncate font-medium"
+            )}
+          >
+            {foundValue ? `Found: ${foundValue}` : "Searching"}
+          </h4>
+        </div>
+        <Transition show={foundValue !== null}>
+          <DialogClose>
+            <Button
+              variant={"secondary"}
+              onClick={() => handleCodeInput(foundValue!)}
+            >
+              Go
+            </Button>
+          </DialogClose>
+        </Transition>
+      </div>
       <div>
         <Label>Not working?</Label>
         <div className="flex w-full items-center gap-2">
