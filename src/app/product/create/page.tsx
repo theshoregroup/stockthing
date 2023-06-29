@@ -125,7 +125,7 @@ export default function CreateProduct() {
               <FormItem>
                 <FormLabel>Supplier</FormLabel>
                 <FormControl>
-                  <Input placeholder="BOSH" {...field} />
+                  <Input required placeholder="BOSH" {...field} />
                 </FormControl>
                 <FormDescription>The OEM or supplier name</FormDescription>
                 <FormMessage />
@@ -139,7 +139,7 @@ export default function CreateProduct() {
               <FormItem>
                 <FormLabel>Area</FormLabel>
                 <FormControl>
-                  <Input placeholder="Damp proofing" {...field} />
+                  <Input required placeholder="Damp proofing" {...field} />
                 </FormControl>
                 <FormDescription>Area of the store</FormDescription>
                 <FormMessage />

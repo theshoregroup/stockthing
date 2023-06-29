@@ -16,7 +16,7 @@ datasource db {
 model Product {
   name      String
   barcode   String             @id
-  supplier  String
+  supplier  String?
   storeCode String
   area      String
   stock     ProductsInStores[]
