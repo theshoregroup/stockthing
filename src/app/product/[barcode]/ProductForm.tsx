@@ -4,6 +4,7 @@ import { Product } from "@prisma/client";
 import { CheckCheck, Move, QrCode, Store } from "lucide-react";
 import { useForm } from "react-hook-form";
 import {
+  DivToChangeStore,
   StoreDispatchInADialog,
   useStore,
 } from "~/components/context/StoreContext";
@@ -24,6 +25,7 @@ import { ProductsInStores } from "@prisma/client";
 import { useSignIn, useUser } from "@clerk/nextjs";
 import { useTransition } from "react";
 import { handleSaveProductsInStores } from "~/server/actions/products";
+import { cn } from "~/lib/utils";
 
 interface ProductWithStock extends Product {
   stock: ProductsInStores[];
@@ -122,7 +124,7 @@ export default function ProductForm({
             />
           </div>
           <div className="mt-2 flex gap-2">
-            <Button>
+            <Button className={cn(isSaving && "animate-pulse")}>
               <CheckCheck className="mr-1 h-5 w-5" />
               Save
             </Button>
@@ -141,27 +143,7 @@ export default function ProductForm({
               </div>
             ) : null}
           </div>
-          <div className="my-2 rounded-xl bg-gradient-to-tr from-blue-500 via-sky-400  to-cyan-400 p-5 text-white">
-            <div>
-              <Store className="h-7 w-7" />
-              <h4>
-                You're currently adding details for {currentStore?.store?.name}
-              </h4>
-            </div>
-            <p className="mb-2 text-sm text-gray-100">
-              You can change your active store at any time.
-            </p>
-
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant={"secondary"}>
-                  <Move className="mr-1 h-5 w-5" />
-                  Change Store
-                </Button>
-              </DialogTrigger>
-              <StoreDispatchInADialog />
-            </Dialog>
-          </div>
+          <DivToChangeStore />
         </form>
       </Form>
     </>
