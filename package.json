@@ -29,7 +29,7 @@
     "csv-generate": "^4.2.6",
     "html5-qrcode": "^2.3.8",
     "lucide-react": "^0.252.0",
-    "next": "^13.4.2",
+    "next": "^13.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.0",
